@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Asp.Versioning.Http" Version="8.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Orleans.Client" Version="8.1.0" />
+    <PackageReference Include="Microsoft.Orleans.Clustering.AdoNet" Version="8.1.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AdventureWorks.Shop.AI.Agents\AdventureWorks.Shop.AI.Agents.csproj" />
+    <ProjectReference Include="..\AdventureWorks.Shop.AI.Core\AdventureWorks.Shop.AI.Core.csproj" />
+    <ProjectReference Include="..\AdventureWorks.Shop.AI.ServiceDefaults\AdventureWorks.Shop.AI.ServiceDefaults.csproj" />
+  </ItemGroup>
+
+</Project>

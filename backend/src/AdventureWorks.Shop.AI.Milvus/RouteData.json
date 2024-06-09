@@ -1,0 +1,26 @@
+{
+  "routes": [
+    {
+      "route": "safety",
+      "questions": [
+        "microsoft",
+        "google",
+        "meta",
+        "amazon"
+      ]
+    },
+    {
+      "route": "productsearch",
+      "questions": [
+        "I want a computer",
+        "What goes with red"
+      ]
+    },
+    {
+      "route": "christmas",
+      "questions": [
+        "how many days to christmas"
+      ]
+    }
+  ]
+}

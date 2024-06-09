@@ -1,0 +1,10 @@
+{
+  "name": "adventureworks.shop.ai.app-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/adventureworks.shop.ai.app-e2e/src",
+  "projectType": "application",
+  "tags": [],
+  "implicitDependencies": ["adventureworks.shop.ai.app"],
+  "// targets": "to see all targets run: nx show project adventureworks.shop.ai.app-e2e --web",
+  "targets": {}
+}

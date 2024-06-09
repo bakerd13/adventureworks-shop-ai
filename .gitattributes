@@ -1,0 +1,7 @@
+*.scss text eol=lf
+*.js text eol=lf
+*.json text eol=lf
+
+*.db -text
+*.sqlite -text
+

@@ -1,0 +1,31 @@
+{
+  "name": "adventureworks.shop.ai.app",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/adventureworks.shop.ai.app/src",
+  "projectType": "application",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project adventureworks.shop.ai.app --web",
+  "targets": {
+    "start": {
+      "executor": "@nx/expo:start",
+      "dependsOn": ["ensure-symlink", "sync-deps"],
+      "options": {
+        "scheme": "adventureworks.shop.ai.app",
+        "clear": true,
+        "dev": true,
+        "lan": true,
+        "port": 3000,
+        "web": true,
+        "android": false
+      }
+    },
+    "sync-deps": {
+      "executor": "@nx/expo:sync-deps",
+      "options": {}
+    },
+    "ensure-symlink": {
+      "executor": "@nx/expo:ensure-symlink",
+      "options": {}
+    }
+  }
+}

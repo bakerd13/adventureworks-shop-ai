@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsAspireHost>true</IsAspireHost>
+    <UserSecretsId>e3c1b87e-31df-4f5e-8872-d09ca46fb353</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AdventureWorks.Shop.AI.BackOfficeApi\AdventureWorks.Shop.AI.BackOfficeApi.csproj" />
+    <ProjectReference Include="..\AdventureWorks.Shop.AI.ConversationsApi\AdventureWorks.Shop.AI.ConversationsApi.csproj" />
+    <ProjectReference Include="..\AdventureWorks.Shop.AI.Silo\AdventureWorks.Shop.AI.Silo.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="8.0.1" />
+  </ItemGroup>
+
+</Project>

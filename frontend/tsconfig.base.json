@@ -1,0 +1,27 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@adventureworks-shop-ai-assets/*": ["apps/adventureworks.shop.ai.app/*"],
+      "@adventureworks.shop.ai.ui": [
+        "libs/adventureworks.shop.ai.ui/src/index.ts"
+      ],
+      "@adventureworks/copilot": ["libs/copilot/src/index.ts"],
+      "@adventureworks/copilot-features": ["libs/copilot-features/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

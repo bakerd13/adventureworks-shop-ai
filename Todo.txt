@@ -1,0 +1,7 @@
+1) Refact class components
+2) full unit of work with rollback
+3) get rid of bang operators ! as forbidden
+4) refactor InputToolbarAccessory
+5) refactor message container (MessageContainer)
+6) Audio to text endpoint
+7) hook likes https://dev.to/vcapretz/instagram-like-button-in-react-native-and-reanimated-v2-3h3k

@@ -1,0 +1,1 @@
+The current time is {{TimeInformation.GetCurrentUtcTime}}. How many days until Christmas? out answer in MARKDOWN"

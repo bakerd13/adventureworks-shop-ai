@@ -1,0 +1,6 @@
+@AdventureWorks.Shop.AI.BackOfficeApi_HostAddress = http://localhost:5159
+
+GET {{AdventureWorks.Shop.AI.BackOfficeApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
