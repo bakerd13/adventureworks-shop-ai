@@ -29,91 +29,95 @@ namespace AdventureWorks.Shop.AI.Milvus
             // Get the assembly where the resource is embedded
             Assembly assembly = Assembly.GetExecutingAssembly();
 
-            // Read the embedded resource
-            using (Stream stream = assembly.GetManifestResourceStream("AdventureWorks.Shop.AI.Milvus.RouteData.json"))
+            // Attempt to read the embedded resource
+            Stream? stream = assembly.GetManifestResourceStream("AdventureWorks.Shop.AI.Milvus.RouteData.json");
+            if (stream != null)
             {
-                if (stream == null)
+                using (stream)
                 {
-                    return false;
-                }
+                    MilvusClient milvusClient = new MilvusClient(_servicesOptions.VectorDatabaseEndpoint);
 
-                MilvusClient milvusClient = new MilvusClient(_servicesOptions.VectorDatabaseEndpoint);
+                    if (milvusClient is null)
+                    {
+                        return false;
+                    }
 
-                if (milvusClient is null)
-                {
-                    return false; 
-                }
+                    var collection = milvusClient.GetCollection(Collections.ROUTES_COLLECTION_NAME);
 
-                var collection = milvusClient.GetCollection(Collections.ROUTES_COLLECTION_NAME);
+                    //Check if this collection exists
+                    var hasCollection = await milvusClient.HasCollectionAsync(Collections.ROUTES_COLLECTION_NAME);
 
-                //Check if this collection exists
-                var hasCollection = await milvusClient.HasCollectionAsync(Collections.ROUTES_COLLECTION_NAME);
+                    if (hasCollection)
+                    {
+                        await collection.DropAsync();
+                        Console.WriteLine("Drop collection {0}", Collections.ROUTES_COLLECTION_NAME);
+                    }
 
-                if (hasCollection)
-                {
-                    await collection.DropAsync();
-                    Console.WriteLine("Drop collection {0}", Collections.ROUTES_COLLECTION_NAME);
-                }
-
-                var schema = new CollectionSchema
-                {
-                    Fields = {
+                    var schema = new CollectionSchema
+                    {
+                        Fields = {
             FieldSchema.Create<long>(RoutesTable.IdField, isPrimaryKey: true, autoId: true),
             FieldSchema.CreateVarchar(RoutesTable.RouteField, maxLength: 200),
             FieldSchema.CreateFloatVector(RoutesTable.SearchField, dimension: 1536)
           },
-                    Description = "routing for agents",
-                    EnableDynamicFields = true
-                };
+                        Description = "routing for agents",
+                        EnableDynamicFields = true
+                    };
 
-                await milvusClient.CreateCollectionAsync(Collections.ROUTES_COLLECTION_NAME, schema);
+                    await milvusClient.CreateCollectionAsync(Collections.ROUTES_COLLECTION_NAME, schema);
 
 #pragma warning disable SKEXP0010 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
-                var embeddingGenerator = new OpenAITextEmbeddingGenerationService(AIModels.Embedding, _aiOptions.Key);
+                    var embeddingGenerator = new OpenAITextEmbeddingGenerationService(AIModels.Embedding, _aiOptions.Key);
 #pragma warning restore SKEXP0010 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 
-                // Read JSON content from the embedded resource
-                using (StreamReader reader = new StreamReader(stream))
-                {
-                    string jsonContent = await reader.ReadToEndAsync();
-
-                    // Deserialize JSON
-                    AgentRouteRootData? rootData = JsonConvert.DeserializeObject<AgentRouteRootData>(jsonContent);
-
-                    if (rootData != null)
+                    // Read JSON content from the embedded resource
+                    using (StreamReader reader = new StreamReader(stream))
                     {
-                        // Seed routes and questions
-                        foreach (var route in rootData.Routes)
+                        string jsonContent = await reader.ReadToEndAsync();
+
+                        // Deserialize JSON
+                        AgentRouteRootData? rootData = JsonConvert.DeserializeObject<AgentRouteRootData>(jsonContent);
+
+                        if (rootData != null)
                         {
-                            var routeNames = new List<string>();
-                            IReadOnlyList<ReadOnlyMemory<float>> routeQuestions = new List<ReadOnlyMemory<float>>();
-
-                            routeNames.Add(route.Route);
-
-                            foreach (var question in route.Questions)
+                            // Seed routes and questions
+                            foreach (var route in rootData.Routes)
                             {
-                                var embeddingQuestion = new List<string>() { question };
-                                var embeddings = await embeddingGenerator.GenerateEmbeddingsAsync(embeddingQuestion);
+                                var routeNames = new List<string>();
+                                IReadOnlyList<ReadOnlyMemory<float>> routeQuestions = new List<ReadOnlyMemory<float>>();
 
-                                await milvusClient.GetCollection(Collections.ROUTES_COLLECTION_NAME).InsertAsync(new FieldData[] {
+                                routeNames.Add(route.Route);
+
+                                foreach (var question in route.Questions)
+                                {
+                                    var embeddingQuestion = new List<string>() { question };
+                                    var embeddings = await embeddingGenerator.GenerateEmbeddingsAsync(embeddingQuestion);
+
+                                    await milvusClient.GetCollection(Collections.ROUTES_COLLECTION_NAME).InsertAsync(new FieldData[] {
                   FieldData.CreateVarChar(RoutesTable.RouteField, routeNames),
                   FieldData.CreateFloatVector(RoutesTable.SearchField, (IReadOnlyList<ReadOnlyMemory<float>>)embeddings)
               });
+                                }
                             }
                         }
                     }
+
+                    var indexType = IndexType.IvfFlat;
+                    var metricType = SimilarityMetricType.L2;
+                    var extraParams = new Dictionary<string, string> { ["nlist"] = "1024" };
+
+                    await collection.CreateIndexAsync(RoutesTable.SearchField, indexType, metricType, "routes_vector_idx", extraParams: extraParams);
+
+                    await collection.LoadAsync();
+
+                    return true;
                 }
-
-                var indexType = IndexType.IvfFlat;
-                var metricType = SimilarityMetricType.L2;
-                var extraParams = new Dictionary<string, string> { ["nlist"] = "1024" };
-
-                await collection.CreateIndexAsync(RoutesTable.SearchField, indexType, metricType, "routes_vector_idx", extraParams: extraParams);
-
-                await collection.LoadAsync();
-
-                return true;
             }
+            else
+            {
+                // Handle the case where the stream is null, e.g., log an error or throw an exception
+                return false;
+            }   
         }
 
         public Task DeleteAgentRoutesAsync()

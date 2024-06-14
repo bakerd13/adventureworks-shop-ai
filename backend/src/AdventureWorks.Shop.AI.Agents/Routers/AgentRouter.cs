@@ -13,8 +13,6 @@ using AdventureWorks.Shop.AI.Milvus;
 using AdventureWorks.Shop.AI.Abstractions.Conversations;
 using AdventureWorks.Shop.AI.Abstractions.Enums;
 using StackExchange.Redis;
-using Microsoft.CodeAnalysis.Differencing;
-using Milvus.Client;
 
 namespace AdventureWorks.Shop.AI.Agents.Routers
 {
@@ -96,11 +94,6 @@ namespace AdventureWorks.Shop.AI.Agents.Routers
 
             var messageVariables = conversation.Messages.Where(w => w.User.Id == AuthorRoles.Assistant.ToString()).Select(s => s.MessageVariables).LastOrDefault(); 
 
-            if (messageVariables is not null && messageVariables.Count > 0)
-            {
-                assistantRoute = messageVariables.FirstOrDefault(pair => pair.Key == AgentRouteConstants.MessageVariableName).Value;
-            }
-
             arguments.Add("current_route_hint", messageRoute);
             arguments.Add("last_route_hint", assistantRoute);
             arguments.Add("message_list", messageSummary);
@@ -108,10 +101,11 @@ namespace AdventureWorks.Shop.AI.Agents.Routers
             var prompt = AgentPrompts.ControllerPrompt;
 
             var result = await _kernel.InvokePromptAsync(prompt, arguments);
+            var resultValue = result.GetValue<string>();
 
-            if (result is not null)
+            if (!string.IsNullOrEmpty(resultValue))
             {
-                var response = JsonConvert.DeserializeObject<RouteResponse>(result.GetValue<string>() ?? "{ \"route\": \"unknown\" }");
+                var response = JsonConvert.DeserializeObject<RouteResponse>(resultValue.Replace("```json", "").Replace("```", ""));
 
                 if (response?.Reply == false)
                 {

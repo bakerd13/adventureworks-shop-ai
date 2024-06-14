@@ -11,6 +11,9 @@ it should be directed to that last agent if the last assistant message is waitin
 Please analyze the context and decide which agent should handle the next interaction 
 if the agent is not waiting on a reply you output the reply as false.
 
-Based on the analysis of the context, respond with a JSON object indicating the appropriate route and reply state. 
+Based on the analysis of the context, respond with a JSON object indicating the appropriate route and reply state.
+
+Just output the full html code please. No comments or instructions please.
+
 For example:
 { "route": "product", "reply": false }
