@@ -3,10 +3,13 @@ using AdventureWorks.Shop.AI.Agents.Extensions;
 using AdventureWorks.Shop.AI.ServiceDefaults;
 using AdventureWorks.Shop.AI.ConversationsApi.Apis;
 using Asp.Versioning;
+using AdventureWorks.Shop.AI.Abstractions.Configuration;
 
 var AdventureWorksAllowSpecificOrigins = "_adventureWorksAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.AddRedisClient(ApplicationResourceNames.AdventureWorksRedisCacheName);
 
 builder.Host.UseOrleansClient(clientBuilder =>
 {

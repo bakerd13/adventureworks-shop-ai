@@ -1,6 +1,6 @@
 ﻿namespace AdventureWorks.Shop.AI.Abstractions.Configuration
 {
-    public static  class OrleansConfiguration
+    public static class OrleansConfiguration
     {
         public const string AdventureWorksStore = "AdventureWorksStore";
         public const string ConnectionStringName = "AdventureWorksStoreConnectionString";

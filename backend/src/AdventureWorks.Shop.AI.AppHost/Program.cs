@@ -19,7 +19,8 @@ var rabbitMq = builder.AddRabbitMQ("eventbus")
 
 var mailpit = builder.AddMailpit("mailpit", "c:/mailpit");
 
-var apiService = builder.AddProject<Projects.AdventureWorks_Shop_AI_ConversationsApi>("adventureworks-shop-ai-conversationsapi");
+var apiService = builder.AddProject<Projects.AdventureWorks_Shop_AI_ConversationsApi>("adventureworks-shop-ai-conversationsapi")
+    .WithReference(redis);
 
 builder.AddProject<Projects.AdventureWorks_Shop_AI_BackOfficeApi>("adventureworks-shop-ai-backofficeapi");
 

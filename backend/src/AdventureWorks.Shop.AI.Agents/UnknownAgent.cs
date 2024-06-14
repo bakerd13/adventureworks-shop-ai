@@ -5,25 +5,22 @@ using AdventureWorks.Shop.AI.Core.Constants;
 using AdventureWorks.Shop.AI.Core.Extensions;
 using AdventureWorks.Shop.AI.Core.Options;
 using AdventureWorks.Shop.AI.Agents.Plugins;
-using AdventureWorks.Shop.AI.Agents.Prompts;
-using AdventureWorks.Shop.AI.Agents.Routers;
 using AdventureWorks.Shop.AI.Agents.Services;
-using AdventureWorks.Shop.AI.DTOs.Conversations;
 using AdventureWorks.Shop.AI.Abstractions.Conversations;
+using AdventureWorks.Shop.AI.DTOs.Conversations;
 using AdventureWorks.Shop.AI.Abstractions.Enums;
-using StackExchange.Redis;
+using AdventureWorks.Shop.AI.Agents.Routers;
 
 namespace AdventureWorks.Shop.AI.Agents
 {
-    public class ChristmasAgent : IAgent
+    public class UnknownAgent : IAgent
     {
         private readonly AIServiceOptions _aiOptions;
         private readonly Kernel _kernel;
         private readonly OpenAIPromptExecutionSettings _settings;
         private readonly IConversationHistoryService _conversationHistoryService;
-        private readonly IConnectionMultiplexer _connectionMultiplexer;
 
-        public ChristmasAgent(IOptions<AIServiceOptions> aiOptions, IConversationHistoryService conversationHistoryService)
+        public UnknownAgent(IOptions<AIServiceOptions> aiOptions, IConversationHistoryService conversationHistoryService)
         {
             _aiOptions = aiOptions.Value;
             _conversationHistoryService = conversationHistoryService;
@@ -31,7 +28,7 @@ namespace AdventureWorks.Shop.AI.Agents
             _settings = new()
             {
                 ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions,
-                MaxTokens = 1000,
+                MaxTokens = 2000,
                 Temperature = 0.1
             };
 
@@ -45,27 +42,23 @@ namespace AdventureWorks.Shop.AI.Agents
             kernelBuilder.Plugins.AddFromType<TimeInformation>();
 
             _kernel = kernelBuilder.Build();
+
         }
 
         public async IAsyncEnumerable<MessageDTO> Ask(Message ask)
         {
             var message = ask.ToAgentMessageDTO();
-            message.MessageType = MessageType.Markdown;
+            message.MessageType = MessageType.Message;
 
             if (message.MessageVariables is null)
             {
                 message.MessageVariables = new List<MessageVariableDTO>();
             }
-            message.MessageVariables.Add(new MessageVariableDTO { Key = AgentRouteConstants.MessageVariableName, Value = AgentRouteConstants.Christmas });
+            message.MessageVariables.Add(new MessageVariableDTO { Key = AgentRouteConstants.MessageVariableName, Value = AgentRouteConstants.Unknown });
 
-            KernelArguments arguments = new(_settings);
-            var prompt = AgentPrompts.ChristmasPrompt;
+            message.Content = "We are sorry, but we could not understand your request. Please try again.";
 
-            await foreach (var update in _kernel.InvokePromptStreamingAsync(prompt, arguments))
-            {
-                message.Content += update.ToString();
-                yield return message;
-            }
+            yield return message;
 
             await _conversationHistoryService.SaveMessageAsync(message.ToMessageEntity());
         }
