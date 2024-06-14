@@ -2,6 +2,14 @@ using AdventureWorks.Shop.AI.AppHost.Extensions;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
+var redis = builder.AddRedis("redis")
+    .WithRedisCommander();
+
+var rabbitMq = builder.AddRabbitMQ("eventbus")
+    // .WithDataVolume("eventbus_data") // commented ou until I discover using this disallows login
+    .WithManagementPlugin()
+    .WithExternalHttpEndpoints();
+
 // ISSUE milvusEtcd, milvusMinio and milvusStandalone failing with docker permissions. This may be due to corporate infrastructure
 // so use docker compose instead.
 // var milvusEtcd = builder.AddMilvusEtcd("milvusetcd", "c:/milvus/volumes/etcd");
