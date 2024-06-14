@@ -11,7 +11,6 @@ using AdventureWorks.Shop.AI.Agents.Services;
 using AdventureWorks.Shop.AI.DTOs.Conversations;
 using AdventureWorks.Shop.AI.Abstractions.Conversations;
 using AdventureWorks.Shop.AI.Abstractions.Enums;
-using StackExchange.Redis;
 
 namespace AdventureWorks.Shop.AI.Agents
 {
@@ -21,7 +20,6 @@ namespace AdventureWorks.Shop.AI.Agents
         private readonly Kernel _kernel;
         private readonly OpenAIPromptExecutionSettings _settings;
         private readonly IConversationHistoryService _conversationHistoryService;
-        private readonly IConnectionMultiplexer _connectionMultiplexer;
 
         public ChristmasAgent(IOptions<AIServiceOptions> aiOptions, IConversationHistoryService conversationHistoryService)
         {

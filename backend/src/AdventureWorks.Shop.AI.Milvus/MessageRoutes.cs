@@ -68,7 +68,7 @@ namespace AdventureWorks.Shop.AI.Milvus
               {
                   OutputFields = { RoutesTable.RouteField },
                   ConsistencyLevel = ConsistencyLevel.Strong,
-                  ExtraParameters = { ["nprobe"] = "1024" }
+                  ExtraParameters = { ["nprobe"] = "10" }
               });
 
             await collection.ReleaseAsync();
