@@ -15,9 +15,10 @@ namespace AdventureWorks.Shop.AI.Agents.Extensions
             services.AddSingleton<IConversationHistoryService, ConversationHistoryService>();
             services.AddScoped<IConversationSummarize, ConversationSummarize>();
 
-            services.AddKeyedSingleton<IAgent, SafetyAgent>("safety");
-            services.AddKeyedSingleton<IAgent, ProductSearchAgent>("productsearch");
-            services.AddKeyedSingleton<IAgent, ChristmasAgent>("christmas");
+            services.AddKeyedSingleton<IAgent, UnknownAgent>(AgentRouteConstants.Unknown);
+            services.AddKeyedSingleton<IAgent, SafetyAgent>(AgentRouteConstants.Safety);
+            services.AddKeyedSingleton<IAgent, ProductSearchAgent>(AgentRouteConstants.ProductSearch);
+            services.AddKeyedSingleton<IAgent, ChristmasAgent>(AgentRouteConstants.Christmas);
 
             return services;
         }
