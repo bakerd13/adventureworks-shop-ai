@@ -43,7 +43,7 @@ export type UserDTO = {
 };
 
 export type ConversationDTO = {
-  id?: number | null;
+  id?: string | undefined | null;
   Title?: string;
   CreatedOn?: Date;
   ModifiedOn?: Date;
@@ -57,7 +57,7 @@ export type MessageDTO = {
   image?: string;
   createdAt: Date | number;
   user: UserDTO;
-  conversationId: string;
+  conversationId: string | undefined | null;
   messageVariables: MessageVariableDTO[] | null;
   like: boolean | null;
 };

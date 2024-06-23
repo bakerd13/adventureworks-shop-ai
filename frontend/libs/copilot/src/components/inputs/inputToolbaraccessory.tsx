@@ -11,7 +11,6 @@ import {
   ViewStyle,
 } from 'react-native';
 import { v4 as uuidv4 } from 'uuid';
-import { useEffect } from 'react';
 import useCopilotStore from '../../stores/copilotStore';
 import {
   Author,
@@ -44,63 +43,8 @@ const InputToolbarAccessory = ({
 }: InputToolbarAccessoryProps) => {
   const { microphoneState, cameraState, setMicrophoneState, setCameraState } =
     useCopilotAccessoryStore<ICopilotAccessoryStore>((state) => state);
-  const { text, setText, setConversationMessage, deleteConversationMessage } =
+  const { text, setConversationMessage, deleteConversationMessage } =
     useCopilotStore((state) => state);
-
-  // @ts-ignore
-  var recognition = new (window.SpeechRecognition ||
-    window.webkitSpeechRecognition ||
-    window.mozSpeechRecognition ||
-    window.msSpeechRecognition)();
-
-  recognition.lang = 'en-GB';
-  recognition.continuous = false;
-  recognition.interimResults = true;
-  recognition.maxAlternatives = 5;
-
-  [
-    'onend',
-    // 'onerror',
-    'onresult',
-    'onspeechend',
-    // 'onstart'
-  ].forEach((eventName) => {
-    switch (eventName) {
-      case 'onresult':
-        // @ts-ignore
-        recognition[eventName] = (event: SpeechRecognitionEvent) => {
-          const results = event.results as SpeechRecognitionResultList;
-
-          const transcript = Array.from(results)
-            .map((result) => result[0])
-            .map((result) => result.transcript)
-            .join('');
-
-          setText(`${text ?? ''} ${transcript}`);
-        };
-        break;
-      case 'onend':
-        // @ts-ignore
-        recognition[eventName] = (event: SpeechRecognitionEvent) => {
-          setMicrophoneState();
-        };
-        break;
-      case 'onspeechend':
-        // @ts-ignore
-        recognition[eventName] = (event: SpeechRecognitionEvent) => {
-          console.log('HERE onspeechend before onend:');
-        };
-        break;
-    }
-  });
-
-  useEffect(() => {
-    if (microphoneState) {
-      recognition.start();
-    } else {
-      recognition.stop();
-    }
-  }, [microphoneState]);
 
   const choiceMicrophone = () => {
     setMicrophoneState();
@@ -117,8 +61,9 @@ const InputToolbarAccessory = ({
           id: Author.SYSTEM,
           name: 'camera',
         },
-        conversationId: null,
+        conversationId: '',
         messageVariables: [],
+        like: false,
       };
       setConversationMessage(cameraMessage);
     } else {

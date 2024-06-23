@@ -374,7 +374,7 @@ const CopilotConversation = (props: CopilotConversationProps) => {
       messageType: MessageType.Message,
       user: user,
       createdAt: new Date(),
-      conversationId: state.conversation?.id ?? null,
+      conversationId: state.conversation?.id,
       like: null,
     };
 

@@ -16,7 +16,7 @@ import { Position, PositionEnum } from '../../types/messageProps';
 
 import { styles } from './messageBubble.styles';
 import { ChatMessageLoading } from '../utilities/chatMessageLoading';
-import { Likes } from '../utilities/likes';
+import { MessageToolbar } from './messageToolbar';
 
 const DEFAULT_OPTION_TITLES = ['Copy Text', 'Cancel'];
 
@@ -153,7 +153,7 @@ const MessageBubble = ({
   };
 
   const renderLikes = () => {
-    return <Likes currentMessage={currentMessage} />;
+    return <MessageToolbar currentMessage={currentMessage} />;
   };
 
   const renderBubbleContent = () => (

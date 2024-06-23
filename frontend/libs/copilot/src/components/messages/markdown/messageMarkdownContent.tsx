@@ -6,11 +6,11 @@ import {
   TextStyle,
 } from 'react-native';
 import { LeftRightCenterStyle } from '../../../types/models';
-import { MessageDTO } from '../../../types/messages';
 import { Position, PositionEnum } from '../../../types/messageProps';
 import Markdown from 'react-native-markdown-display';
 import { styles, markdownStyles } from './messageMarkdownContent.styles';
 import { ThemeEnum } from '@adventureworks.shop.ai.ui';
+import { MessageDTO } from '../../../types/messages';
 
 export interface MessageMarkdownProps {
   theme: ThemeEnum;

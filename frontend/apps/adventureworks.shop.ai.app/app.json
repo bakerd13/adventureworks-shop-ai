@@ -49,7 +49,12 @@
       "expo-font",
       "expo-localization",
       "expo-router",
-      "expo-secure-store"
+      "expo-secure-store",
+	  ["expo-av",
+        {
+          "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone."
+        }
+      ]
     ],
     "experiments": {
       "tsconfigPaths": true

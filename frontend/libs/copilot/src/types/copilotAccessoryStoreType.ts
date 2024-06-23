@@ -1,9 +1,9 @@
 export interface ICopilotAccessoryStore {
-  volumeState: boolean;
+  speechState: boolean;
   microphoneState: boolean;
   cameraState: boolean;
   resetAccessoryState: () => void;
-  setVolumeState: () => void;
+  setSpeechState: () => void;
   setMicrophoneState: () => void;
   setCameraState: () => void;
 };

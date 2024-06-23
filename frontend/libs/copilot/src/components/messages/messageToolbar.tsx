@@ -1,5 +1,6 @@
 import { StyleSheet, View, ViewStyle, Pressable } from 'react-native';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 import { LeftRightCenterStyle } from '../../types/models';
 import { Position, PositionEnum } from '../../types/messageProps';
@@ -7,6 +8,9 @@ import { Author, LikeDTO, MessageDTO } from '../../types/messages';
 import useCopilotStore from '../../stores/copilotStore';
 import usePreferenceStore from '../../stores/preferenceStore';
 import { ThemeEnum } from '@adventureworks.shop.ai.ui';
+import { useEffect, useState } from 'react';
+import { GetTranslation } from '../../handlers/speechUtils';
+import { Audio } from 'expo-av';
 
 const { containerStyle } = StyleSheet.create({
   containerStyle: {
@@ -43,23 +47,45 @@ const styles = {
   }),
 };
 
-export interface LikesProps {
+export interface MessageToolbarProps {
   position?: Position;
   currentMessage?: MessageDTO;
   containerStyle?: LeftRightCenterStyle<ViewStyle>;
 }
 
-export const Likes = ({
+export const MessageToolbar = ({
   position = PositionEnum.Left,
   containerStyle,
   currentMessage,
-}: LikesProps) => {
+}: MessageToolbarProps) => {
   const { updateConversationMessage } = useCopilotStore((state) => state);
   const theme = usePreferenceStore((state) => state.theme);
+  const [speechState, setSpeechState] = useState(false);
+  const [sound, setSound] = useState<Audio.Sound>();
+
+  useEffect(() => {
+    const fetchTranslation = async () => {
+      if (speechState) {
+        const sound = await GetTranslation(currentMessage?.content, currentMessage?.id);
+        setSound(sound);
+      } else {
+        sound?.unloadAsync();
+      }
+    };
+  
+    fetchTranslation();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [speechState]);
 
   if (currentMessage?.user.id !== Author.ASSISTANT) {
     return null;
   }
+
+  const setSpeech = () => {
+    
+    setSpeechState(!speechState);
+    
+  };
 
   const setLike = (like: boolean) => {
     currentMessage.like = like;
@@ -101,6 +127,9 @@ export const Likes = ({
       </Pressable>
       <Pressable style={styles[position].button} onPress={() => setLike(false)}>
         <AntDesign name="dislike2" size={12} color={theme === ThemeEnum.Light ? "black" : "white"} />
+      </Pressable>
+      <Pressable style={styles[position].button} onPress={() => setSpeech()}>
+        <MaterialIcons name={speechState ? 'volume-up' : 'volume-off'} size={12} color={theme === ThemeEnum.Light ? "black" : "white"} />
       </Pressable>
     </View>);
   }

@@ -8,7 +8,7 @@ import {
   StyleProp,
   ViewStyle,
 } from 'react-native';
-import { MIN_COMPOSER_HEIGHT, DEFAULT_PLACEHOLDER } from '../../constants';
+import { MIN_COMPOSER_HEIGHT, DEFAULT_PLACEHOLDER } from '../../../constants';
 import { Colors } from '@adventureworks.shop.ai.ui';
 import { styles } from './composer.styles';
 import { ThemeEnum } from '@adventureworks.shop.ai.ui';
@@ -29,8 +29,13 @@ export interface ComposerProps {
   onInputSizeChanged?(layout: { width: number; height: number }): void;
 }
 
+export interface ComposerMicrophoneProps {
+  microphoneState: boolean;
+}
+
 export const Composer = ({
   theme = ThemeEnum.Light,
+  microphoneState = false,
   composerHeight = MIN_COMPOSER_HEIGHT,
   disableComposer = false,
   keyboardAppearance = 'default',
@@ -43,7 +48,7 @@ export const Composer = ({
   textInputAutoFocus = false,
   textInputProps = {},
   textInputStyle,
-}: ComposerProps): React.ReactElement => {
+}: ComposerProps & ComposerMicrophoneProps): React.ReactElement | null => {
   const dimensionsRef = useRef<{ width: number; height: number }>();
 
   const determineInputSizeChange = useCallback(
@@ -72,7 +77,7 @@ export const Composer = ({
   }: NativeSyntheticEvent<TextInputContentSizeChangeEventData>) =>
     determineInputSizeChange(contentSize);
 
-  return (
+  return !microphoneState ? (
     <TextInput
       testID={placeholder}
       accessible
@@ -104,5 +109,5 @@ export const Composer = ({
       keyboardAppearance={keyboardAppearance}
       {...textInputProps}
     />
-  );
+  ) : null;
 }

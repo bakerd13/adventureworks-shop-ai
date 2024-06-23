@@ -2,6 +2,8 @@ export { default as useCopilotStore } from './stores/copilotStore';
 export { default as usePreferenceStore } from './stores/preferenceStore';
 export { default as useCopilotCameraStore } from './stores/copilotCameraStore';
 export { default as useCopilotAccessoryStore } from './stores/copilotAccessoryStore';
+export { default as MessageHandler } from './handlers/messageHandler';
+
 export { default as NavigationHeader } from './components/headers/navigationHeader';
 
 export { default as AccessoryBar } from './components/inputs/inputToolbaraccessory';

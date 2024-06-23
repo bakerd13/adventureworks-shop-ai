@@ -1,13 +1,9 @@
-import { View, Text, Pressable, Switch, ScrollView } from 'react-native';
+import { View, Text, Switch, ScrollView } from 'react-native';
 import { styles } from './settingsPanel.styles';
 import { LayoutEnum, usePreferenceStore } from '../../stores/preferenceStore';
 import { Theme, ThemeEnum } from '@adventureworks.shop.ai.ui';
 
-type SettingsPanelProps = {
-  onClose: () => void;
-};
-
-const SettingsPanel = ({ onClose }: SettingsPanelProps) => {
+const SettingsPanel = () => {
   const { theme, layout, setTheme, setLayout } = usePreferenceStore(state => state);
 
   const toggleTheme = (value: boolean) => {
