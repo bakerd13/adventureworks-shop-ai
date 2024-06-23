@@ -5,7 +5,7 @@ const Library = () => {
 
   return (
     <View>
-      <SettingsPanel onClose={() => console.log('HERE')}/>
+      <SettingsPanel />
     </View>
   )
 }

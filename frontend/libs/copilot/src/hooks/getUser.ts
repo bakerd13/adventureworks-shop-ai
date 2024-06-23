@@ -4,7 +4,6 @@ const GetUser = async (
   userId: string
 ): Promise<UserDTO> => {
   try {
-    console.log('HERE : ', userId);
     const url = `${process.env.EXPO_PUBLIC_ADVENTUREWORKS_AI_URL}/api/users/${userId}`;
     const options = {
       method: 'GET',

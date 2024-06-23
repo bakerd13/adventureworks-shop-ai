@@ -39,7 +39,9 @@
     "react-native-render-html": "*",
     "@tanstack/react-query-devtools": "*",
     "react-native-lightbox-v2": "*",
-    "react-native-gesture-handler": "*"
+    "react-native-gesture-handler": "*",
+    "react-native-canvas": "*",
+    "expo-av": "*"
   },
   "scripts": {
     "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . apps/adventureworks.shop.ai.app && cp package-lock.json apps/adventureworks.shop.ai.app",

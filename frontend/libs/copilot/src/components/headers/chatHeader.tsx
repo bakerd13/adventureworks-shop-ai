@@ -10,18 +10,10 @@ import { ICopilotAccessoryStore } from "../../types/copilotAccessoryStoreType";
 const ChatHeader = ({ theme }: { theme: ThemeEnum }) => {
   const { setText, clearConversation } = useCopilotStore(state => state);
 
-  const {
-    volumeState,
-    resetAccessoryState,
-    setVolumeState,
-  } = useCopilotAccessoryStore<ICopilotAccessoryStore>((state) => state);
+  const { resetAccessoryState } = useCopilotAccessoryStore<ICopilotAccessoryStore>((state) => state);
 
   const clearMessage = () => {
     setText('');
-  };
-
-  const choiceVolume = () => {
-    setVolumeState();
   };
 
   const choiceNewConversation = () => {
@@ -38,13 +30,6 @@ const ChatHeader = ({ theme }: { theme: ThemeEnum }) => {
         onPress={() => choiceNewConversation()}
         name={'chat-plus'}
         type="MaterialCommunityIcons"
-      />
-      <Button
-        containerStyle={styles(theme).button}
-        theme={theme}
-        onPress={() => choiceVolume()}
-        name={volumeState ? 'volume-up' : 'volume-off'}
-        type="MaterialIcons"
       />
       <Button
         containerStyle={styles(theme).button}

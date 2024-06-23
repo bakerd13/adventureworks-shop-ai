@@ -5,7 +5,7 @@ export const styles = (theme: ThemeEnum) => StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-between',
-    maxWidth: 300,
+    maxWidth: 200,
     minHeight: 200,
     margin: 16,
     borderRadius: 5,
@@ -15,25 +15,28 @@ export const styles = (theme: ThemeEnum) => StyleSheet.create({
     backgroundColor: Theme[theme].cardBackgroundColor,
   },
   title: {
-    width: '100%',
+    flex: 1,
     color: Theme[theme].fontColor,
     padding: 16,
     fontSize: 16,
     flexWrap: 'wrap',
+    flexShrink: 1,
   },
   infoWrapper: {
-    paddingBottom: 16,
+    paddingBottom: 0,
     alignItems: 'flex-start',
+    justifyContent: 'flex-end',
   },
   buttonWrapper: {
     paddingBottom: 16,
     alignItems: 'flex-end',
   },
   infoSummary: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     paddingLeft: 16,
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'center',
+    margin: 5,
   },
   buttonsContainer: {
     alignSelf: 'flex-end',

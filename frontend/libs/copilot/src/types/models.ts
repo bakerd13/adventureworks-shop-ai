@@ -1,10 +1,10 @@
 import { StyleProp, ViewStyle } from 'react-native';
 import { LightboxProps } from 'react-native-lightbox-v2';
-import { IMessage } from './messages';
+import { MessageDTO } from './messages';
 
 export { ActionsProps } from '../components/actions';
 export { AvatarProps } from '../components/avatars/avatar';
-export { ComposerProps } from '../components/inputs/composer';
+export { ComposerProps } from '../components/inputs/composers/composer';
 export { DayProps } from '../components/utilities/day';
 export { CopilotAvatarProps } from '../components/avatars/copilotAvatar';
 export { InputToolbarProps } from '../components/inputs/inputToolbar';
@@ -21,7 +21,7 @@ export interface LeftRightCenterStyle<T> {
   right?: StyleProp<T>;
 }
 
-export interface MessageVideoProps<TMessage extends IMessage> {
+export interface MessageVideoProps<TMessage extends MessageDTO> {
   currentMessage?: TMessage;
   containerStyle?: StyleProp<ViewStyle>;
   videoStyle?: StyleProp<ViewStyle>;
@@ -29,7 +29,7 @@ export interface MessageVideoProps<TMessage extends IMessage> {
   lightboxProps?: LightboxProps;
 }
 
-export interface MessageAudioProps<TMessage extends IMessage> {
+export interface MessageAudioProps<TMessage extends MessageDTO> {
   currentMessage?: TMessage;
   containerStyle?: StyleProp<ViewStyle>;
   audioStyle?: StyleProp<ViewStyle>;

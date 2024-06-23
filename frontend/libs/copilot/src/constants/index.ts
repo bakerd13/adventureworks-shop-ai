@@ -24,6 +24,8 @@ export const DATE_FORMAT = 'll';
 export const TIME_FORMAT = 'LT';
 export const DATE_TIME_FORMAT = 'lll';
 
+export const SPEECH_WORD_CHUNK = 50;
+
 export const TEST_ID = {
   WRAPPER: 'GC_WRAPPER',
   LOADING_WRAPPER: 'GC_LOADING_CONTAINER',

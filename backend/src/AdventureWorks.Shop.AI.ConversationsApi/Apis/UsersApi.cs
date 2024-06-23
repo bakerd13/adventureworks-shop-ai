@@ -9,7 +9,7 @@ namespace AdventureWorks.Shop.AI.ConversationsApi.Apis
 {
     public static class UsersApi
     {
-        public static RouteGroupBuilder MapUsersApiV1(this IEndpointRouteBuilder app)
+        public static RouteGroupBuilder MapUsersApiEndpointsV1(this IEndpointRouteBuilder app)
         {
             var api = app.MapGroup("api/users").HasApiVersion(1.0);
 

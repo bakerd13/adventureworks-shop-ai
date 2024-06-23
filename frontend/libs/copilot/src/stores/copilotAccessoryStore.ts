@@ -3,19 +3,19 @@ import { ICopilotAccessoryStore } from '../types/copilotAccessoryStoreType';
 
 export const useCopilotAccessoryStore = create<ICopilotAccessoryStore>((set, get) => ({
   name: 'User Copilot Accessory Store',
-  volumeState: false,
+  speechState: false,
   microphoneState: false,
   cameraState: false,
   resetAccessoryState: (): void => {
     set((state) => ({
-      volumeState: false,
+      speechState: false,
       microphoneState: false,
       cameraState: true,
     }));
   },
-  setVolumeState: (): void => {
+  setSpeechState: (): void => {
     set((state) => ({
-      volumeState: !state.volumeState,
+      speechState: !state.speechState,
     }));
   },
   setMicrophoneState: (): void => {

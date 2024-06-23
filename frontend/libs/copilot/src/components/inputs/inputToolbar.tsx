@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Keyboard, StyleProp, ViewStyle } from 'react-native';
-import { Composer, ComposerProps } from './composer';
+import { View, Text, Keyboard, StyleProp, ViewStyle } from 'react-native';
+import { Composer, ComposerProps } from './composers/composer';
 import { Actions, ActionsProps } from '../actions';
 import { styles } from './inputToolbar.styles';
 import InputToolbarAccessory from './inputToolbaraccessory';
 import { ThemeEnum } from '@adventureworks.shop.ai.ui';
+import useCopilotAccessoryStore from '../../stores/copilotAccessoryStore';
+import AudioComposer from './audios/audioComposer';
 
 export interface InputToolbarProps {
   theme: ThemeEnum;
@@ -17,10 +19,16 @@ export interface InputToolbarProps {
   onPressActionButton?(): void;
 }
 
+export interface ComposerProps {
+  microphoneState: boolean;
+}
+
 export const InputToolbar = (
   props: InputToolbarProps
 ) => {
   const [position, setPosition] = useState('absolute');
+  const microphoneState = useCopilotAccessoryStore<boolean>((state) => state.microphoneState);
+
   useEffect(() => {
     const keyboardWillShowListener = Keyboard.addListener(
       'keyboardWillShow',
@@ -52,7 +60,8 @@ export const InputToolbar = (
       <View style={[styles(props.theme).primary, props.primaryStyle]}>
         {customActions?.(rest) ||
           (onPressActionButton && <Actions {...rest} />)}
-        <Composer textInputStyle={styles(props.theme).composer} {...(props as ComposerProps)} />
+          <Composer microphoneState={microphoneState} textInputStyle={styles(props.theme).composer} {...(props as ComposerProps)} />
+          <AudioComposer microphoneState={microphoneState} />
         <InputToolbarAccessory containerStyle={styles(props.theme).accessories} {...props} />
       </View>
     </View>

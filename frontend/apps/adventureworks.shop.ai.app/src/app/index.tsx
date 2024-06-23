@@ -1,12 +1,8 @@
 
 import {
   CopilotConversation,
-  ICopilotAccessoryStore,
-  ICopilotCameraStore,
   MessageDTO,
-  MessageType,
-  useCopilotAccessoryStore,
-  useCopilotCameraStore,
+  MessageHandler,
   useCopilotStore,
   usePreferenceStore,
 } from '@adventureworks/copilot';
@@ -16,18 +12,9 @@ import React, { useCallback } from 'react';
 import { View, StyleSheet } from 'react-native';
 
 const ConversationsIndex = () => {
-  const {
-    conversation,
-    setText,
-    setConversationMessage,
-    copilotHandler,
-    deleteConversationMessage,
-  } = useCopilotStore((state) => state);
+  const { conversation } = useCopilotStore((state) => state);
 
   const { user } = usePreferenceStore((state) => state);
-  const { setCameraState } = useCopilotAccessoryStore<ICopilotAccessoryStore>(
-    (state) => state
-  );
 
   // useEffect(() => {
   //   const fetchUser = async () => {
@@ -43,28 +30,11 @@ const ConversationsIndex = () => {
   //   }
   // }, []);
 
-  const { picture, resetCameraState } =
-    useCopilotCameraStore<ICopilotCameraStore>((state) => state);
-
   const onSend = useCallback(
     (message: MessageDTO) => {
-      if (picture) {
-        message?.messageVariables?.push( { key: 'image', value: picture });
-        deleteConversationMessage(MessageType.Camera);
-        setCameraState();
-        resetCameraState();
-      }
-
-      setConversationMessage(message);
-
-      if (copilotHandler === undefined || copilotHandler === null) {
-        throw new Error('Copilot Handler is not set');
-      }
-
-      copilotHandler(message);
-      setText('');
+      MessageHandler(message);
     },
-    [copilotHandler, deleteConversationMessage, picture, resetCameraState, setCameraState, setConversationMessage, setText]
+    []
   );
 
   return (
