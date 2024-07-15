@@ -22,7 +22,10 @@ export const styles = (theme: ThemeEnum) => StyleSheet.create({
   },
   textContainer: {
     alignItems: 'flex-start',
+    justifyContent: 'center',
     margin: 20,
+    flexShrink: 1,
+    width: '100%',
   },
   title: {
     width: '100%',

@@ -13,7 +13,6 @@ export const styles = (theme: ThemeEnum) => StyleSheet.create({
     backgroundColor: Theme[theme].headerBarColor,
   },
   buttonsContainer: {
-    flex: 1,
     alignSelf: 'flex-start',
     backgroundColor: 'transparent',
     marginHorizontal: 10,
@@ -24,10 +23,13 @@ export const styles = (theme: ThemeEnum) => StyleSheet.create({
     backgroundColor: 'transparent',
     marginHorizontal: 10,
     marginVertical: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   text: {
     fontSize: 24,
     fontWeight: 'bold',
     color: Theme[theme].fontColor,
+    transform: 'translateX(-20px)',
   },
 });
