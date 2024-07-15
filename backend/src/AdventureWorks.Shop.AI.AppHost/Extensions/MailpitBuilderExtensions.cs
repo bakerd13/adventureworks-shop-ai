@@ -6,6 +6,7 @@ namespace AdventureWorks.Shop.AI.AppHost.Extensions
     {
         public static IResourceBuilder<MailpitServerResource> AddMailpit(this IDistributedApplicationBuilder builder,
             string name,
+            int port,
             string volume)
         {
             var mailPit = new MailpitServerResource(name);
@@ -13,7 +14,7 @@ namespace AdventureWorks.Shop.AI.AppHost.Extensions
                                   .WithImage("axllent/mailpit")
                                   .WithBindMount(volume, "/data")
                                   .WithHttpEndpoint(port: 8025, targetPort: 8025)
-                                  .WithEndpoint(port: 1025, targetPort: 1025)
+                                  .WithEndpoint(port: port, targetPort: 1025)
                                   .WithEnvironment(context =>
                                   {
                                       context.EnvironmentVariables["MP_DATABASE"] = "/data/mailpit.db";

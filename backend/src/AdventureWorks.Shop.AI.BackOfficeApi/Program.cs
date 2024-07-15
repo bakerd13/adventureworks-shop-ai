@@ -15,41 +15,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add service defaults & Aspire components.
 builder.AddServiceDefaults();
+builder.AddAzureBlobClient(ApplicationResourceNames.AdventureWorksBlobStorageConnectionName);
 
 // Add services to the container.
 builder.Services.AddProblemDetails();
 builder.Host.AddConfiguration();
 
-string? connectionString = configuration.GetConnectionString(OrleansConfiguration.ConnectionStringName);
-
-if (string.IsNullOrEmpty(connectionString))
-{
-    Console.WriteLine($"Connection string '{OrleansConfiguration.ConnectionStringName}' not found.");
-}
-else
-{
-    Console.WriteLine($"Connection string '{OrleansConfiguration.ConnectionStringName}': {connectionString}");
-}
-
-// const string invariant = "System.Data.SqlClient";
-
-builder.Host.UseOrleansClient(clientBuilder =>
-{
-    // To many errors for db clustering trying localhost clustering
-    //clientBuilder.Configure<ClusterOptions>(options =>
-    // {
-    //     options.ClusterId = OrleansConfiguration.ClusterId;
-    //     options.ServiceId = OrleansConfiguration.ServiceId;
-    // });
-
-    // clientBuilder.UseAdoNetClustering(options =>
-    // {
-    //     options.ConnectionString = connectionString;
-    //     options.Invariant = invariant;
-    // });
-
-    clientBuilder.UseLocalhostClustering();
-});
 
 var withApiVersioning = builder.Services.AddApiVersioning(options =>
 {

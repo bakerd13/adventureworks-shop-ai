@@ -13,12 +13,19 @@
     <ProjectReference Include="..\AdventureWorks.Shop.AI.BackOfficeApi\AdventureWorks.Shop.AI.BackOfficeApi.csproj" />
     <ProjectReference Include="..\AdventureWorks.Shop.AI.ConversationsApi\AdventureWorks.Shop.AI.ConversationsApi.csproj" />
     <ProjectReference Include="..\AdventureWorks.Shop.AI.Silo\AdventureWorks.Shop.AI.Silo.csproj" />
+    <ProjectReference Include="..\DockerDatabaseChecker\DockerDatabaseChecker.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting.AppHost" Version="8.0.1" />
+    <PackageReference Include="Aspire.Hosting.Azure.Storage" Version="8.0.2" />
     <PackageReference Include="Aspire.Hosting.RabbitMQ" Version="8.0.1" />
     <PackageReference Include="Aspire.Hosting.Redis" Version="8.0.1" />
+    <PackageReference Include="Aspire.Hosting.SqlServer" Version="8.0.2" />
+    <PackageReference Include="AspNetCore.HealthChecks.Rabbitmq" Version="8.0.1" />
+    <PackageReference Include="AspNetCore.HealthChecks.Redis" Version="8.0.1" />
+    <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="8.0.2" />
+    <PackageReference Include="AspNetCore.HealthChecks.Uris" Version="8.0.1" />
   </ItemGroup>
 
 </Project>

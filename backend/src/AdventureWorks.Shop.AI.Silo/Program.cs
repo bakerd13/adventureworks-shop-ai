@@ -3,12 +3,12 @@ using AdventureWorks.Shop.AI.Agents.Services;
 using AdventureWorks.Shop.AI.Core.Options;
 using AdventureWorks.Shop.AI.Core.Services;
 using AdventureWorks.Shop.AI.Silo.Extensions;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Orleans.Configuration;
-using Orleans.Hosting;
+using System.Data.SqlClient;
 
 try
 {
@@ -23,6 +23,7 @@ try
     if (string.IsNullOrEmpty(connectionString))
     {
         Console.WriteLine($"Connection string '{OrleansConfiguration.ConnectionStringName}' not found.");
+        return 1;
     }
     else
     {
@@ -40,8 +41,6 @@ try
             //     options.ClusterId = OrleansConfiguration.ClusterId;
             //     options.ServiceId = OrleansConfiguration.ServiceId;
             // });
-
-
 
             //builder.UseAdoNetClustering(options =>
             //{
@@ -66,9 +65,9 @@ try
 
             // builder.ConfigureEndpoints(siloPort: 11111, gatewayPort: 30000);
             builder.UseDashboard();
-            //builder.Services.AddScoped<IConversationSummarize, ConversationSummarize>();
         })
-        .ConfigureServices((context, services) => {
+        .ConfigureServices((context, services) =>
+        {
             services.AddSingleton<IConversationSummarize, ConversationSummarize>();
             services.AddOptions<AIServiceOptions>()
                 .Bind(configuration.GetSection(AIServiceOptions.PropertyName))
@@ -92,4 +91,3 @@ catch (Exception ex)
     Console.Error.WriteLine(ex);
     return 1;
 }
-
