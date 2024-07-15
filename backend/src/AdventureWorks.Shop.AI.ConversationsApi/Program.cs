@@ -11,6 +11,8 @@ var AdventureWorksAllowSpecificOrigins = "_adventureWorksAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddSqlServerClient("AdventureWorks2022");
+
 builder.AddRedisClient(ApplicationResourceNames.AdventureWorksRedisCacheName);
 
 builder.Host.UseOrleansClient(clientBuilder =>

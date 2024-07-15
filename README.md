@@ -22,15 +22,21 @@ With technics like
 
  ### Technologies used
 
+ - .NET Aspire
  - .NET 8
  - Semantic Kernel
  - Microsoft Orleans
  - Expo
  - Sql
  - Mailpit
- - .NET Aspire
+ - Neo4j
+ - Keycloak
+ - Azure storage
+ - Sql Server
 
 ## Prerequisites
+
+Windows or Macs with 32 GB of Ram (with just about work with 16GB)
 
 To work with this project, you need the following installed locally:
 
@@ -38,8 +44,9 @@ To work with this project, you need the following installed locally:
 - .NET 8.0
 - .NET Aspire workload: Installed with the Visual Studio installer or the .NET CLI workload.
 - Visual Studio 2022 17.10 and above or VS code with c# dev kit
+- VS Code (optional NX console extension)
 - Node Latest LTS
-- Sql Server 2019 and above, with SSMS
+- SSMS (Sql Server Management Studio)
 - OpenAI api account (currently)
 
 ## Installation
@@ -88,6 +95,8 @@ Tests are coming soon. Once they're available.
 ## Known Issues
 
 - The UI is still in development
+
+- The milvus vector database will be integrated into aspire when available from nuget
 
 ## License
 

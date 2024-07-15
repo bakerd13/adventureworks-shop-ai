@@ -43,7 +43,7 @@ namespace AdventureWorks.Shop.AI.Milvus
                     }
 
                     var collection = milvusClient.GetCollection(Collections.ROUTES_COLLECTION_NAME);
-
+                    
                     //Check if this collection exists
                     var hasCollection = await milvusClient.HasCollectionAsync(Collections.ROUTES_COLLECTION_NAME);
 

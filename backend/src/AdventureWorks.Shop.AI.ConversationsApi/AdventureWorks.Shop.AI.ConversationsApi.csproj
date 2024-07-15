@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Asp.Versioning.Http" Version="8.1.0" />
+    <PackageReference Include="Aspire.Microsoft.Data.SqlClient" Version="8.0.2" />
     <PackageReference Include="Aspire.StackExchange.Redis" Version="8.0.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
     <PackageReference Include="Microsoft.Orleans.Client" Version="8.1.0" />
