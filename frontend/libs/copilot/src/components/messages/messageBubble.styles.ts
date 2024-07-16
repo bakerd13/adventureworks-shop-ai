@@ -1,8 +1,8 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '@adventureworks.shop.ai.ui';
+import { Theme, ThemeEnum } from '@adventureworks.shop.ai.ui';
 
 export const styles = {
-  center: StyleSheet.create({
+  center: (theme: ThemeEnum) => StyleSheet.create({
     container: {
       flex: 1,
       alignItems: 'flex-start',
@@ -26,19 +26,18 @@ export const styles = {
       paddingVertical: 5,
     },
   }),
-  left: StyleSheet.create({
+  left: (theme: ThemeEnum) => StyleSheet.create({
     container: {
       flex: 1,
       alignItems: 'flex-start',
     },
     wrapper: {
-      width: '65%',
-      backgroundColor: Colors.leftBubbleBackground,
-      borderColor: Colors.borderColor,
+      borderColor: Theme[theme].borderColor,
       borderWidth: StyleSheet.hairlineWidth,
       borderStyle: 'solid',
       marginRight: 60,
       marginBottom: 10,
+      padding: 10,
       minHeight: 20,
       justifyContent: 'flex-end',
     },
@@ -57,19 +56,18 @@ export const styles = {
       marginVertical: 5,
     },
   }),
-  right: StyleSheet.create({
+  right: (theme: ThemeEnum) => StyleSheet.create({
     container: {
       flex: 1,
       alignItems: 'flex-end',
     },
     wrapper: {
-      width: '65%',
-      backgroundColor: Colors.white,
-      borderColor: Colors.borderColor,
+      borderColor: Theme[theme].borderColor,
       borderWidth: StyleSheet.hairlineWidth,
       borderStyle: 'solid',
       marginLeft: 60,
       marginBottom: 10,
+      padding: 10,
       minHeight: 20,
       justifyContent: 'flex-end',
     },

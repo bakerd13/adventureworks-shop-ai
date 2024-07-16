@@ -1,39 +1,35 @@
-import SkeletonLoading from 'expo-skeleton-loading'
-import { View } from 'react-native';
+import { ThemeEnum } from '@adventureworks.shop.ai.ui';
+import { MotiView } from 'moti';
+import { Skeleton } from 'moti/skeleton';
+import { View, StyleSheet } from 'react-native';
 
-export const ChatMessageLoading = () => {
+export const ChatMessageLoading = ({ theme }: { theme: ThemeEnum }) => {
   return (
-      <SkeletonLoading background={'#adadad'} highlight={'#ffffff'}>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          <View style={{ flex: 1, marginLeft: 5 }}>
-            <View
-              style={{
-                backgroundColor: '#adadad',
-                width: '50%',
-                height: 10,
-                marginBottom: 3,
-                borderRadius: 5,
-              }}
-            />
-            <View
-              style={{
-                backgroundColor: '#adadad',
-                width: '20%',
-                height: 8,
-                borderRadius: 5,
-              }}
-            />
-            <View
-              style={{
-                backgroundColor: '#adadad',
-                width: '15%',
-                height: 8,
-                borderRadius: 5,
-                marginTop: 3,
-              }}
-            />
-          </View>
-        </View>
-      </SkeletonLoading>
+    <MotiView
+    transition={{
+      type: 'timing',
+    }}
+    style={[styles.container, styles.padded]}
+    animate={{ backgroundColor: 'Transparent' }}
+  >
+    <Skeleton colorMode={theme} width={'75%'} />
+    <Spacer height={8} />
+    <Skeleton colorMode={theme} width={'100%'} />
+    <Spacer height={8} />
+    <Skeleton colorMode={theme} width={'100%'} />
+  </MotiView>
   );
 };
+
+const Spacer = ({ height = 16 }) => <View style={{ height }} />;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    width: '100%',
+    justifyContent: 'center',
+  },
+  padded: {
+    padding: 16,
+  },
+});

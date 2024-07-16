@@ -1,7 +1,9 @@
+import 'react-native-reanimated'
+import 'react-native-gesture-handler'
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SplashScreen, Stack } from 'expo-router';
 import { QueryClient } from '@tanstack/react-query';
 import Head from 'expo-router/head';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useFonts } from 'expo-font';
 // import { useAssets } from 'expo-asset';
 import React, { useEffect } from 'react';
@@ -60,14 +62,14 @@ const ConversationLayout = () => {
             />
             <Stack.Screen
               name="library"
-              options={{     
+              options={{
                 headerShown: true,
                 header: (props) => <NavigationHeader title='Library' theme={theme}/>,
               }}
             />
             <Stack.Screen
               name="settings"
-              options={{     
+              options={{
                 headerShown: true,
                 header: (props) => <NavigationHeader title='Settings' theme={theme}/>,
               }}

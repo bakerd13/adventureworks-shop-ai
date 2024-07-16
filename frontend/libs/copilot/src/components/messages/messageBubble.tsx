@@ -6,24 +6,23 @@ import {
   ViewStyle,
   TextStyle,
 } from 'react-native';
-
 import { CopilotContext } from '../../contexts/copilotContext';
 import { Time } from '../utilities/time';
 import { isSameUser, isSameDay } from '../../utils';
 import { LeftRightCenterStyle } from '../../types/models';
-import { MessageDTO, UserDTO } from '../../types/messages';
+import { MessageDTO  } from '../../types/messages';
 import { Position, PositionEnum } from '../../types/messageProps';
-
 import { styles } from './messageBubble.styles';
 import { ChatMessageLoading } from '../utilities/chatMessageLoading';
 import { MessageToolbar } from './messageToolbar';
+import { ThemeEnum } from '@adventureworks.shop.ai.ui';
 
 const DEFAULT_OPTION_TITLES = ['Copy Text', 'Cancel'];
 
 export interface MessageBubbleProps {
-  user?: UserDTO;
   children: ReactNode;
   touchableProps?: object;
+  theme: ThemeEnum;
   position: Position;
   currentMessage?: MessageDTO;
   nextMessage?: MessageDTO;
@@ -32,18 +31,16 @@ export interface MessageBubbleProps {
   containerStyle?: LeftRightCenterStyle<ViewStyle>;
   wrapperStyle?: LeftRightCenterStyle<ViewStyle>;
   textStyle?: LeftRightCenterStyle<TextStyle>;
-  bottomContainerStyle?: LeftRightCenterStyle<ViewStyle>;
   containerToNextStyle?: LeftRightCenterStyle<ViewStyle>;
   containerToPreviousStyle?: LeftRightCenterStyle<ViewStyle>;
-  usernameStyle?: TextStyle;
   onPress?(context?: unknown, message?: unknown): void;
   onLongPress?(context?: unknown, message?: unknown): void;
 }
 
 const MessageBubble = ({
-  user,
   children,
   touchableProps,
+  theme,
   position,
   currentMessage,
   nextMessage,
@@ -51,8 +48,6 @@ const MessageBubble = ({
   optionTitles = DEFAULT_OPTION_TITLES,
   containerStyle = {},
   wrapperStyle = {},
-  bottomContainerStyle = {},
-  usernameStyle = {},
   containerToNextStyle = {},
   containerToPreviousStyle = {},
   onPress,
@@ -102,7 +97,7 @@ const MessageBubble = ({
       isSameDay(currentMessage, nextMessage)
     ) {
       return [
-        styles[position].containerToNext,
+        styles[position](theme).containerToNext,
         containerToNextStyle && containerToNextStyle[position],
       ];
     }
@@ -118,7 +113,7 @@ const MessageBubble = ({
       isSameDay(currentMessage, previousMessage)
     ) {
       return [
-        styles[position].containerToPrevious,
+        styles[position](theme).containerToPrevious,
         containerToPreviousStyle && containerToPreviousStyle[position],
       ];
     }
@@ -134,21 +129,16 @@ const MessageBubble = ({
 
   const renderEmptyText = () => {
     if (currentMessage?.content.length === 0) {
-      return <ChatMessageLoading />;
+      return <ChatMessageLoading theme={theme} />;
     }
     return null;
   };
 
   const renderTime = () => {
     if (currentMessage && currentMessage.createdAt) {
-      const { containerStyle, wrapperStyle, textStyle, ...timeProps } = {
-        containerStyle,
-        wrapperStyle,
-        textStyle,
-      };
-
-      return <Time {...timeProps} />;
+      return <Time containerStyle={containerStyle} />;
     }
+
     return null;
   };
 
@@ -166,13 +156,13 @@ const MessageBubble = ({
   return (
     <View
       style={[
-        styles[position].container,
+        styles[position](theme).container,
         containerStyle && containerStyle[position],
       ]}
     >
       <View
         style={[
-          styles[position].wrapper,
+          styles[position](theme).wrapper,
           styledBubbleToNext(),
           styledBubbleToPrevious(),
           wrapperStyle && wrapperStyle[position],
@@ -186,7 +176,7 @@ const MessageBubble = ({
         >
           <View>
             {renderBubbleContent()}
-            <View style={[styles[position].footer]}>
+            <View style={[styles[position](theme).footer]}>
               {renderTime()}
               {renderLikes()}
             </View>
