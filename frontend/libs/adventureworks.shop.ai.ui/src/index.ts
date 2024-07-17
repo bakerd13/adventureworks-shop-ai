@@ -5,3 +5,5 @@ export * from './typography';
 
 export * from './queryCacheName';
 export * from './queryStaleTimes';
+
+export { default as useDeviceSize } from './hooks/useDeviceSize'

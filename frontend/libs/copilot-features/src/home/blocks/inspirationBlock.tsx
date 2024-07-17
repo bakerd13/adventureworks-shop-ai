@@ -1,8 +1,8 @@
 import { Image } from 'expo-image';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
-import useDeviceSize from '../../hooks/useDeviceSize';
+import { View, Text, StyleSheet } from 'react-native';
 import RichTextBlock from '../../common/richTextBlock';
 import { colors, fonts } from '../../constants';
+import { useDeviceSize } from '@adventureworks.shop.ai.ui';
 
 const imageWidth = 480;
 

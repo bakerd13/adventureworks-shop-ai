@@ -1,5 +1,7 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 import { Theme, ThemeEnum } from '@adventureworks.shop.ai.ui';
+
+const { width } = Dimensions.get('window');
 
 export const styles = {
   center: (theme: ThemeEnum) => StyleSheet.create({
@@ -40,6 +42,7 @@ export const styles = {
       padding: 10,
       minHeight: 20,
       justifyContent: 'flex-end',
+      minWidth: width * 0.75,
     },
     containerToNext: {
       borderBottomLeftRadius: 3,

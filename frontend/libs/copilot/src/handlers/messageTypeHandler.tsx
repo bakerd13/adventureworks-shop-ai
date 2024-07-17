@@ -5,7 +5,7 @@ import { MessageDTO, MessageType } from '../types/messages';
 import { MessageText } from '../components/messages/text/messageText';
 import { MessageMarkdownContent } from '../components/messages/markdown/messageMarkdownContent';
 import MessageComponent from '../components/messages/messageComponent';
-import { FeatureTypeHandler } from '@adventureworks/copilot-features';
+import { MessageHtmlContent } from '../components/messages/html/messageHtmlContent';
 
 const MessageTypeHandler = (
   messageProps: MessageProps<MessageDTO>
@@ -23,9 +23,9 @@ const MessageTypeHandler = (
               </MessageComponent>
             );
 
-    case MessageType.Component:
+    case MessageType.Html:
       return (<MessageComponent {...messageProps}>
-                {FeatureTypeHandler({...messageProps})}
+                <MessageHtmlContent {...messageProps} />
               </MessageComponent>
             );
 

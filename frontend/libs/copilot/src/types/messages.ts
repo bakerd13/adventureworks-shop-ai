@@ -16,7 +16,7 @@ export enum MessageType {
   Camera,
   Audio,
   Markdown,
-  Component,
+  Html,
 }
 
 export const MessageTypeDescription = {
@@ -26,7 +26,7 @@ export const MessageTypeDescription = {
   [MessageType.Camera]: 'camera',
   [MessageType.Audio]: 'audio',
   [MessageType.Markdown]: 'markdown',
-  [MessageType.Component]: 'component',
+  [MessageType.Html]: 'html',
 };
 
 type renderFunction = (x: any) => JSX.Element;
