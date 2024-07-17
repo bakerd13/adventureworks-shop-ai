@@ -38,11 +38,11 @@ export const styles = {
       flexDirection: 'column',
     },
     text: {
-      color: 'black',
+      color: Theme[theme].fontColor,
       ...textStyle,
     },
     link: {
-      color: 'black',
+      color: Theme[theme].fontColor,
       textDecorationLine: 'underline',
     },
     image: {
@@ -58,11 +58,11 @@ export const styles = {
       flexDirection: 'column',
     },
     text: {
-      color: 'black',
+      color: Theme[theme].fontColor,
       ...textStyle,
     },
     link: {
-      color: 'black',
+      color: Theme[theme].fontColor,
       textDecorationLine: 'underline',
     },
     image: {

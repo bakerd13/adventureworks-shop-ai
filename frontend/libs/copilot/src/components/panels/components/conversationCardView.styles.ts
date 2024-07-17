@@ -49,10 +49,13 @@ export const styles = (theme: ThemeEnum) => StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 10,
   },
- 
+
   padding16: {
     paddingLeft: 16,
     paddingBottom: 16,
     paddingRight: 16,
+  },
+  text: {
+    color: Theme[theme].fontColor,
   },
 });

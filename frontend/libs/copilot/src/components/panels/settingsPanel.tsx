@@ -28,7 +28,7 @@ const SettingsPanel = () => {
             <Switch
               style={styles(theme).switch}
               trackColor={Theme[theme].trackColor}
-              thumbColor={theme === 'dark' ? '#5fdd4b' : '#4ff3f4'}
+              thumbColor={Theme[theme].thumbColor}
               ios_backgroundColor="#3e3e3e"
               value={theme === ThemeEnum.Dark ? true : false}
               onValueChange={toggleTheme}
@@ -46,7 +46,7 @@ const SettingsPanel = () => {
             <Switch
               style={{ transform: [{ scaleX: 1 }, { scaleY: 1 }] }}
               trackColor={Theme[theme].trackColor}
-              thumbColor={theme === 'dark' ? '#5fdd4b' : '#4ff3f4'}
+              thumbColor={Theme[theme].thumbColor}
               ios_backgroundColor="#3e3e3e"
               value={layout === LayoutEnum.Staggered ? true : false}
               onValueChange={toggleLayout}

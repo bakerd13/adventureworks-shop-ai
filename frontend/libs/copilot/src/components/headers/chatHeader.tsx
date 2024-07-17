@@ -9,7 +9,6 @@ import { ICopilotAccessoryStore } from "../../types/copilotAccessoryStoreType";
 
 const ChatHeader = ({ theme }: { theme: ThemeEnum }) => {
   const { setText, clearConversation } = useCopilotStore(state => state);
-
   const { resetAccessoryState } = useCopilotAccessoryStore<ICopilotAccessoryStore>((state) => state);
 
   const clearMessage = () => {

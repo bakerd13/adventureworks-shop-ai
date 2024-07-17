@@ -1,13 +1,12 @@
 import { StyleSheet, View, ViewStyle, Pressable } from 'react-native';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-
 import { LeftRightCenterStyle } from '../../types/models';
 import { Position, PositionEnum } from '../../types/messageProps';
 import { Author, LikeDTO, MessageDTO } from '../../types/messages';
 import useCopilotStore from '../../stores/copilotStore';
 import usePreferenceStore from '../../stores/preferenceStore';
-import { ThemeEnum } from '@adventureworks.shop.ai.ui';
+import { Theme } from '@adventureworks.shop.ai.ui';
 import { useEffect, useState } from 'react';
 import { GetTranslation } from '../../handlers/speechUtils';
 import { Audio } from 'expo-av';
@@ -72,7 +71,7 @@ export const MessageToolbar = ({
         sound?.unloadAsync();
       }
     };
-  
+
     fetchTranslation();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [speechState]);
@@ -82,9 +81,9 @@ export const MessageToolbar = ({
   }
 
   const setSpeech = () => {
-    
+
     setSpeechState(!speechState);
-    
+
   };
 
   const setLike = (like: boolean) => {
@@ -123,13 +122,13 @@ export const MessageToolbar = ({
       ]}
     >
       <Pressable style={styles[position].button} onPress={() => setLike(true)}>
-        <AntDesign name="like2" size={12} color={theme === ThemeEnum.Light ? "black" : "white"} />
+        <AntDesign name="like2" size={12} color={Theme[theme].iconColor} />
       </Pressable>
       <Pressable style={styles[position].button} onPress={() => setLike(false)}>
-        <AntDesign name="dislike2" size={12} color={theme === ThemeEnum.Light ? "black" : "white"} />
+        <AntDesign name="dislike2" size={12} color={Theme[theme].iconColor} />
       </Pressable>
       <Pressable style={styles[position].button} onPress={() => setSpeech()}>
-        <MaterialIcons name={speechState ? 'volume-up' : 'volume-off'} size={12} color={theme === ThemeEnum.Light ? "black" : "white"} />
+        <MaterialIcons name={speechState ? 'volume-up' : 'volume-off'} size={12} color={Theme[theme].iconColor} />
       </Pressable>
     </View>);
   }
@@ -142,10 +141,13 @@ export const MessageToolbar = ({
       ]}
     >
       <Pressable style={styles[position].button} onPress={() => setLike(true)}>
-        {currentMessage.like ? <AntDesign name="like1" size={12} color="black" /> : <AntDesign name="like2" size={12} color="white" />}
+        {currentMessage.like ? <AntDesign name="like1" size={12} color={Theme[theme].iconColor} /> : <AntDesign name="like2" size={12} color={Theme[theme].iconColor} />}
       </Pressable>
       <Pressable style={styles[position].button} onPress={() => setLike(false)}>
-        {!currentMessage.like ? <AntDesign name="dislike1" size={12} color="black" /> : <AntDesign name="dislike2" size={12} color="white" />}
+        {!currentMessage.like ? <AntDesign name="dislike1" size={12} color={Theme[theme].iconColor} /> : <AntDesign name="dislike2" size={12} color={Theme[theme].iconColor} />}
+      </Pressable>
+      <Pressable style={styles[position].button} onPress={() => setSpeech()}>
+        <MaterialIcons name={speechState ? 'volume-up' : 'volume-off'} size={12} color={Theme[theme].iconColor} />
       </Pressable>
     </View>
   );

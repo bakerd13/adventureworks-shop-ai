@@ -11,6 +11,7 @@ export type ThemeType = {
     assistantBackgroundColor: string;
     headerBarColor: string;
     trackColor: { false: string, true: string };
+    thumbColor: string;
     fontColor: string;
     buttonFontColor: string;
     cardBackgroundColor: string;
@@ -25,31 +26,33 @@ export interface ThemeCollection {
 
 export const Theme: ThemeCollection = {
   [ThemeEnum.Light]: {
-    backgroundColor: '#F8F8F8',
-    borderColor: '#d8d8d6',
-    iconColor: '#333333',
-    textboxColor: '#F8F8F8',
-    assistantBackgroundColor: '#F8F8F8',
-    headerBarColor: '#F8F8F8',
-    trackColor: { false: '#000', true: '#000' },
-    fontColor: 'black',
-    buttonFontColor: '#F8F8F8',
-    cardBackgroundColor: '#F8F8F8',
-    cardIconColor: '#CCCCCC',
-    cardFontColor: '#CCCCCC',
+    backgroundColor: '#FAFAFA',
+    borderColor: '#E0E0E0',
+    iconColor: '#505050',
+    textboxColor: '#FFFFFF',
+    assistantBackgroundColor: '#EFEFEF',
+    headerBarColor: '#EAEAEA',
+    trackColor: { false: '#000', true: '#282C34' },
+    thumbColor: '#282C34',
+    fontColor: '#000000',
+    buttonFontColor: '#FFFFFF',
+    cardBackgroundColor: '#FFFFFF',
+    cardIconColor: '#666666',
+    cardFontColor: '#666666',
   },
   [ThemeEnum.Dark]: {
-    backgroundColor: '#333333',
-    borderColor: '#464C55',
-    iconColor: '#CCCCCC',
+    backgroundColor: '#282C34',
+    borderColor: '#525960',
+    iconColor: '#BBBBBB',
     textboxColor: '#464C55',
-    assistantBackgroundColor: '#444444',
-    headerBarColor: '#464C55',
-    trackColor: { false: '#000', true: '#000' },
-    fontColor: '#CCCCCC',
+    assistantBackgroundColor: '#2C2F33',
+    headerBarColor: '#3C4043',
+    trackColor: { false: '#000', true: '#FAFAFA' },
+    thumbColor: '#FAFAFA',
+    fontColor: '#E0E0E0',
     buttonFontColor: '#CCCCCC',
-    cardBackgroundColor: '#CCCCCC',
-    cardIconColor: '#333333',
-    cardFontColor: '#333333',
+    cardBackgroundColor: '#3C4043',
+    cardIconColor: '#AAAAAA',
+    cardFontColor: '#AAAAAA',
   }
 } as const;
