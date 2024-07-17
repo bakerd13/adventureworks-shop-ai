@@ -24,7 +24,7 @@ const ConversationCardView = ({ conversation, theme }: { conversation: Conversat
         setCurrentConversation(result);
         router.dismissAll();
       }
-    
+
       const deleteConversation = async (conversationId: string) => {
         await DeleteConversationHandler(conversationId);
         queryClient.invalidateQueries({ queryKey: [queryCacheName.CONVERSATIONS] });
@@ -33,19 +33,19 @@ const ConversationCardView = ({ conversation, theme }: { conversation: Conversat
     return (
       <View style={styles(theme).container}>
         <View style={styles(theme).title}>
-          <Text>{conversation.title}</Text>
+          <Text style={styles(theme).text}>{conversation.title}</Text>
         </View>
 
         <View style={styles(theme).infoWrapper}>
           <View style={styles(theme).infoSummary}>
-            <Text style={typography.sizeXXS}>Created At: </Text>
-            <Text style={typography.sizeXXS}>
+            <Text style={[typography.sizeXXS, styles(theme).text]}>Created At: </Text>
+            <Text style={[typography.sizeXXS, styles(theme).text]}>
               {dayjs(conversation.createdOn).locale(getLocale()).format(DATE_TIME_FORMAT)}
             </Text>
           </View>
           <View style={styles(theme).infoSummary}>
-            <Text style={typography.sizeXXS}>Modified On: </Text>
-            <Text style={typography.sizeXXS}>
+            <Text style={[typography.sizeXXS, styles(theme).text]}>Modified On: </Text>
+            <Text style={[typography.sizeXXS, styles(theme).text]}>
               {dayjs(conversation.ModifiedOn).locale(getLocale()).format(DATE_TIME_FORMAT)}
             </Text>
           </View>
@@ -64,6 +64,5 @@ const ConversationCardView = ({ conversation, theme }: { conversation: Conversat
       </View>
     );
   };
-  
+
   export default ConversationCardView;
-  
